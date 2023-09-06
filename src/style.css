@@ -1,5 +1,5 @@
 :root {
-    --backgr-clr: white;
+    --backgr-clr: rgb(66, 65, 65);
 }
 * {
     outline: solid red 1px;
@@ -28,12 +28,14 @@ body {
     display: flex;
     justify-content: center;
     font-size: 2rem;
+    color: white; 
 }
 
 .footer {
     background-color: var(--backgr-clr);
     display: flex;
     justify-content: center;
+    color: white;
 }
 
 .main {
@@ -42,7 +44,8 @@ body {
 }
 
 .left {
-    width: 20%;
+    width: 25%;
+    background-color: rgb(168, 166, 166)
 }
 
 .buttons {
@@ -51,7 +54,7 @@ body {
     align-items: center;
 }
 
-button {
+.buttons > button {
     flex: 0 0 auto;
     width: auto;
     padding: 10px;
@@ -59,5 +62,70 @@ button {
 }
 
 .right {
-    width: 80%;
+    width: 75%;
+    background-color: rgb(218, 218, 218);
+    padding: 20px;
 }
+
+.title {
+    margin: 20px 0;
+}
+
+.right-content {
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.right-content > * {
+    margin: 10px 0;
+}
+
+.right-content > *:hover {
+    background-color: red;
+}
+
+.element {
+    display: flex;
+    justify-content: space-between;
+}
+
+.element > * {
+    display: flex;
+    gap: 10px;
+}
+
+.add-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.add-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.add-buttons > * {
+    width: 100%;
+}
+
+.menu-add-button {
+    background-color: rgb(39, 175, 39);
+}
+
+.menu-remove-button {
+    background-color: rgb(202, 22, 22);
+}
+
+.project {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+/* .project > button{
+
+} */
