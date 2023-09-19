@@ -6,6 +6,12 @@ let db = {
     // db.projekt1.push('value')
 };
 
+// Try to add flag somehow to the event listeners with addAddMenu; - done
+// Try add todos to current db -
+// Check if todo class is made ok and how i can improve it -
+// Add functionality to buttons to the left -
+// Try to connect db with web storage -
+// Make it look ok xd -
 
 function screenControler() {
     const buttonAddProject = document.querySelector('.add-project');
@@ -16,7 +22,10 @@ function screenControler() {
 
     let flag = true;
 
+    
+
     function addAddMenu() {
+        console.log(flag);
         if (flag) {
             flag = false;
             let parentElement = this.parentNode;
@@ -28,6 +37,11 @@ function screenControler() {
             const titleInput = document.createElement('input');
             const descriptionInput = document.createElement('input');
             const radioContainer = document.createElement('div');
+            const dateInput = document.createElement('input');
+
+
+            dateInput.type = 'date';
+            dateInput.className = "input-date";
 
             const optionsAndValues = [
                 { option: 'Easy', value: 'Easy' },
@@ -75,6 +89,7 @@ function screenControler() {
             // Add radiolist with priority
             newDiv.appendChild(titleInput);
             newDiv.appendChild(descriptionInput);
+            newDiv.appendChild(dateInput);
             newDiv.appendChild(radioContainer);
             buttonsDiv.appendChild(buttonAdd);
             buttonsDiv.appendChild(buttonRemove);
@@ -82,16 +97,17 @@ function screenControler() {
             parentElement.appendChild(newDiv);
 
             buttonAdd.addEventListener('click', () => {
-                
+                // Data needs to be todo class !
+                let data = 
+                console.log(data);
+                submitToStorage(db, project1, data)
             });
 
             buttonRemove.addEventListener('click', () => {
                 parentElement.removeChild(newDiv);
                 flag = true;
+                console.log(flag);
             });
-
-            buttonAddProject.removeEventListener('click', addAddMenu);
-            buttonAddElement.removeEventListener('click', addAddMenu); 
         };
     }  
 };
