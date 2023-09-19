@@ -129,3 +129,16 @@ body {
 /* .project > button{
 
 } */
+
+.card-container {
+    margin: 10px;
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-add-cont {
+    margin: 20px 0;
+}
