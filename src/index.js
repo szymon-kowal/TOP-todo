@@ -1,13 +1,13 @@
 import './style.css';
-import todo from './modules/todo.js'
+import todo from './modules/todo.js';
 
 let db = {
-    projekt1 : []
+    project1 : []
     // db.projekt1.push('value')
 };
 
 // Try to add flag somehow to the event listeners with addAddMenu; - done
-// Try add todos to current db -
+// Try add todos to current db - done
 // Check if todo class is made ok and how i can improve it -
 // Add functionality to buttons to the left -
 // Try to connect db with web storage -
@@ -17,6 +17,7 @@ function screenControler() {
     const buttonAddProject = document.querySelector('.add-project');
     const buttonAddElement = document.querySelector('.add-element');
     
+    
     buttonAddProject.addEventListener('click', addAddMenu);
     buttonAddElement.addEventListener('click', addAddMenu);
 
@@ -25,7 +26,6 @@ function screenControler() {
     
 
     function addAddMenu() {
-        console.log(flag);
         if (flag) {
             flag = false;
             let parentElement = this.parentNode;
@@ -97,10 +97,17 @@ function screenControler() {
             parentElement.appendChild(newDiv);
 
             buttonAdd.addEventListener('click', () => {
+                const selectedRadio = document.querySelector('input[name="options"]:checked');
                 // Data needs to be todo class !
-                let data = 
+                let title = titleInput.value;
+                let description = descriptionInput.value;
+                let dueDate = dateInput.value;
+                let prority = selectedRadio ? selectedRadio.value : 'nothing';
+                let data = new todo(title, description, dueDate, prority);
                 console.log(data);
-                submitToStorage(db, project1, data)
+                submitToStorage(db, 'project1', data);
+                flag = true;
+                parentElement.removeChild(newDiv);
             });
 
             buttonRemove.addEventListener('click', () => {
@@ -110,10 +117,12 @@ function screenControler() {
             });
         };
     }  
+
 };
 
 function submitToStorage(database, projectName, data) {
-    database.projectName.push(data);
+    database[projectName].push(data);
+    console.log(database);
 };
 
 screenControler();

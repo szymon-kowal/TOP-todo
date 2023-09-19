@@ -1,4 +1,4 @@
-export class todo {
+class todo {
     constructor(title, description, dueDate, prority) {
         this.title = title;
         this.description = description;
@@ -6,3 +6,5 @@ export class todo {
         this.prority = prority;
     }
 }
+
+export default todo;
