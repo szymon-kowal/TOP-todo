@@ -10,6 +10,8 @@ let db = {
 // Try add todos to current db - done
 // Check if todo class is made ok and how i can improve it - done
 // Try to display one of elements from db on page - done
+// Check how to differentiate if something is added to specific project or not - 
+// Make new projects button works
 // Add functionality to buttons to the left -
 // Try to connect db with web storage -
 // Make it look ok xd -
@@ -112,7 +114,7 @@ function screenControler() {
                 flag = true;
                 parentElement.removeChild(newDiv);
 
-                displayFromDatabase(db, cardContainer, selectWeek);
+                displayFromDatabase(db, cardContainer);
             });
 
             buttonRemove.addEventListener('click', () => {
