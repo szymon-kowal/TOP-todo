@@ -16,22 +16,77 @@ let db = {
 // Try to connect db with web storage -
 // Make it look ok xd -
 
+
+// Optional : Instead of flag, write code that when clicked on new project it autocloses 
+// Add element button
+const cardContainer = document.querySelector('.right-content');
+
 function screenControler() {
-    const cardContainer = document.querySelector('.right-content');
+    
+    const projectsContainer = document.querySelector('.projects-header');
     const buttonAddProject = document.querySelector('.add-project');
     const buttonAddElement = document.querySelector('.add-element');
 
     displayFromDatabase(db, cardContainer);
+    displayProjects(db, projectsContainer);
 
-    buttonAddProject.addEventListener('click', addAddMenu);
+    buttonAddProject.addEventListener('click', addAddProjectMenu);
     buttonAddElement.addEventListener('click', addAddMenu);
 
     let flag = true;
+
+    function addAddProjectMenu() {
+        if (flag) {
+            flag = false;
+            let parentElement = this.parentNode;
+
+            const newDiv = document.createElement('div');
+            const buttonsDiv = document.createElement('div');
+            const buttonAdd = document.createElement('button');
+            const buttonRemove = document.createElement('button');
+            const titleInput = document.createElement('input');
+
+            titleInput.type = 'text';
+            titleInput.value = 'Title';
+            titleInput.id = "title";
+
+            buttonsDiv.className = 'add-buttons';
+            buttonAdd.className = 'menu-add-button';
+            buttonRemove.className = 'menu-remove-button';
+
+            buttonAdd.innerHTML = 'Add';
+            buttonRemove.innerHTML = 'Remove';
+
+            newDiv.className = 'add-menu';
+
+            newDiv.addEventListener('click', () => {
+                console.log('lol')
+            });
+            
+            newDiv.appendChild(titleInput);
+            buttonsDiv.appendChild(buttonAdd);
+            buttonsDiv.appendChild(buttonRemove);
+            newDiv.appendChild(buttonsDiv);
+            parentElement.appendChild(newDiv);
+
+            buttonAdd.addEventListener('click', () => {
+                const title = titleInput.value;
+                if (!(`${title}` in db)) {
+                    db[title] = [];
+                }
+                
+                displayProjects(db, projectsContainer);
+            });
+
+            buttonRemove.addEventListener('click', () => {
+                parentElement.removeChild(newDiv);
+                flag = true;
+                // remove from database - TODO
+            });
+        }
+    }
     
     function addAddMenu() {
-
-        
-
         if (flag) {
             flag = false;
             let parentElement = this.parentNode;
@@ -130,15 +185,47 @@ function submitToStorage(database, projectName, data) {
     database[projectName].push(data);
 };
 
-function displayFromDatabase(database, container, filterFunction = () => true) {
+function displayProjects(database, parentElement) {
+    parentElement.innerHTML = '';
+    for (const key in database) {
+        const newDiv = document.createElement('div');
+        const projectName = document.createElement('p');
+        const removeProjectButton = document.createElement('button');
+
+        newDiv.className = 'project';
+        removeProjectButton.className = 'remove-project'
+        removeProjectButton.innerHTML = 'x';
+        projectName.textContent = `${key}`;
+        newDiv.appendChild(projectName);
+        newDiv.appendChild(removeProjectButton);
+        parentElement.appendChild(newDiv);
+
+        newDiv.addEventListener('click', () => {
+            displayFromDatabase(db, cardContainer, key => key === projectName.textContent, true)
+        });
+
+        console.log(database)
+    }
+}
+
+function removeProject(database, key) {
+    delete database[key];
+    return;
+}
+
+
+function displayFromDatabase(database, container,filterKey = () => true, filterFunction = () => true) {
     container.innerHTML = ''; // To change
     for (const key in database) {
-        const value = database[key];
-        for (const data of database[key]) {
-            if (filterFunction(data)) {
-                container.appendChild(displayCard(data));
+        if (filterKey(key)) {
+            const value = database[key];
+            for (const data of database[key]) {
+                if (filterFunction(data)) {
+                    container.appendChild(displayCard(data));
+                }
             }
         }
+        
     }
 }
 
